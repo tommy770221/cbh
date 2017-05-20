@@ -7,5 +7,6 @@
         <field:input field="category" id="c_com_cbh_entity_Disease_category" z="fCxVrFybQsu3ZXvOb+upUyg9kc4="/>
         <field:input field="bigCategory" id="c_com_cbh_entity_Disease_bigCategory" z="2nLxgCIYb7btwy+lPm3YchOAt/U="/>
         <field:input field="symptom" id="c_com_cbh_entity_Disease_symptom" z="a4uAmj38LCIfuV1mEcubNVrVa3Q="/>
+        <field:input field="orderDis" id="c_com_cbh_entity_Disease_orderDis" z="oV49UnmIyTL5cSaGfU9LVksYH7A="/>
     </form:update>
 </div>

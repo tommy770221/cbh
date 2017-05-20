@@ -8,6 +8,7 @@
             <table:column id="c_com_cbh_entity_Disease_category" property="category" z="ZIJ5fNbaJwUKODjpb0iMBfOqfSM="/>
             <table:column id="c_com_cbh_entity_Disease_bigCategory" property="bigCategory" z="Ue+1KZ1+ok0wHiYeYCdcND0RrlI="/>
             <table:column id="c_com_cbh_entity_Disease_symptom" property="symptom" z="u+xkvO+rYpkvF7xgWm9od7Qoasc="/>
+            <table:column id="c_com_cbh_entity_Disease_orderDis" property="orderDis" z="4uehsn5wQoiC0yr6r8TB0uhaiO4="/>
         </table:table>
     </page:list>
 </div>

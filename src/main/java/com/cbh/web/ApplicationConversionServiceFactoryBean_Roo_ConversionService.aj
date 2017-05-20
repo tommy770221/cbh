@@ -5,6 +5,7 @@ package com.cbh.web;
 
 import com.cbh.entity.Disease;
 import com.cbh.entity.HospitalInfo;
+import com.cbh.mongo.pro.InResponseTo;
 import com.cbh.web.ApplicationConversionServiceFactoryBean;
 import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.core.convert.converter.Converter;
@@ -17,7 +18,7 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
     public Converter<Disease, String> ApplicationConversionServiceFactoryBean.getDiseaseToStringConverter() {
         return new org.springframework.core.convert.converter.Converter<com.cbh.entity.Disease, java.lang.String>() {
             public String convert(Disease disease) {
-                return new StringBuilder().append(disease.getDocCategory()).append(' ').append(disease.getCategory()).append(' ').append(disease.getBigCategory()).append(' ').append(disease.getSymptom()).toString();
+                return new StringBuilder().append(disease.getOrderDis()).append(' ').append(disease.getDocCategory()).append(' ').append(disease.getCategory()).append(' ').append(disease.getBigCategory()).toString();
             }
         };
     }
@@ -71,9 +72,22 @@ privileged aspect ApplicationConversionServiceFactoryBean_Roo_ConversionService 
         registry.addConverter(getStringToHospitalInfoConverter());
     }
     
+    public Converter<InResponseTo, String> ApplicationConversionServiceFactoryBean.getInResponseToToStringConverter() {
+        return new org.springframework.core.convert.converter.Converter<com.cbh.mongo.pro.InResponseTo, java.lang.String>() {
+            public String convert(InResponseTo inResponseTo) {
+                return new StringBuilder().append(inResponseTo.getText()).append(" ").append(inResponseTo.getOccurrence()).append(" ").toString();
+            }
+        };
+    }
+    
+    public void ApplicationConversionServiceFactoryBean.installEmbeddableConverters(FormatterRegistry registry) {
+        registry.addConverter(getInResponseToToStringConverter());
+    }
+    
     public void ApplicationConversionServiceFactoryBean.afterPropertiesSet() {
         super.afterPropertiesSet();
         installLabelConverters(getObject());
+        installEmbeddableConverters(getObject());
     }
     
 }
