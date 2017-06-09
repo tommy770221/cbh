@@ -1,11 +1,14 @@
 package com.cbh.facebook.util;
 
+import com.cbh.mongo.HospitalGeoResponse;
+import com.cbh.service.HospitalGeoMongoService;
 import com.restfb.DefaultFacebookClient;
 import com.restfb.FacebookClient;
 import com.restfb.Parameter;
 import com.restfb.Version;
 import com.restfb.json.JsonObject;
 import com.restfb.types.send.*;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +17,12 @@ import java.util.List;
  * Created by Tommy on 2017/5/14.
  */
 public class TestFacebookManage {
+    @Autowired
+    HospitalGeoMongoService hospitalGeoMongoService;
+
     public static void main(String[] args) {
 
-        String pageAccessToken = "EAAFY2anAUssBACgau7xzE7YUM4jSRLwUCSXLw7ykmonCu3gPGC1TzJsBRpG24brtuUDbZCYWoTWwcDevanfaeQkvyjDhrHdOY2yzYzIpP5fRAJvRGO1SiPMb3N455WZBo44FNRLKZAuxcaEAtadCzJXfeTPwIi8ETuIYAlPmwZDZD";
+        String pageAccessToken = "EAAFPgrP0FZC4BAAcZCw66JNdgnZC5sBp8DVBZCrHggdS3hLONKsPLWb6tfZCv7PHEEXZAPjcWZCp0v2QyGC3oqMs7atPC1H5bAvSEnopTOpY3fe4glJIlXa8WwaYyXxJtRXQ2pc7qX2ZAWelsR7iIbsvh2Y8wiIgec6JUOxPOZBvoKgZDZD";
 
         // create a version 2.8 client
         FacebookClient pageClient = new DefaultFacebookClient(pageAccessToken, Version.VERSION_2_8);

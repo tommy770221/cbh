@@ -155,8 +155,7 @@ public class LineBotController {
                     if(env.getMessage() instanceof TextMessageContent) {
                         MessageEvent<TextMessageContent> askContent=(MessageEvent<TextMessageContent>) event;
                         TextMessage ask=new TextMessage(askContent.getMessage().getText());
-                        String askForJeiba=".*";
-                        String responseAns= "對不起,我聽不懂你再說什";
+
 
                         JiebaSegmenter segmenter = new JiebaSegmenter();
                         System.out.println(segmenter.process(ask.getText(), JiebaSegmenter.SegMode.SEARCH).toString());

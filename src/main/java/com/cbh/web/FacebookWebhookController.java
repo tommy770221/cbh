@@ -120,7 +120,8 @@ public class FacebookWebhookController {
                                 responseCat = "對不起,目前資料不足無法分析!";
                             }
                             Message simpleTextMessage = new Message(responseCat);
-                            String pageAccessToken = "EAAFY2anAUssBACgau7xzE7YUM4jSRLwUCSXLw7ykmonCu3gPGC1TzJsBRpG24brtuUDbZCYWoTWwcDevanfaeQkvyjDhrHdOY2yzYzIpP5fRAJvRGO1SiPMb3N455WZBo44FNRLKZAuxcaEAtadCzJXfeTPwIi8ETuIYAlPmwZDZD";
+
+                            String pageAccessToken = "EAAFPgrP0FZC4BAAcZCw66JNdgnZC5sBp8DVBZCrHggdS3hLONKsPLWb6tfZCv7PHEEXZAPjcWZCp0v2QyGC3oqMs7atPC1H5bAvSEnopTOpY3fe4glJIlXa8WwaYyXxJtRXQ2pc7qX2ZAWelsR7iIbsvh2Y8wiIgec6JUOxPOZBvoKgZDZD";
 
                             // create a version 2.8 client
                             FacebookClient pageClient = new DefaultFacebookClient(pageAccessToken, Version.VERSION_2_8);
