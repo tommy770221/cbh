@@ -11,8 +11,6 @@ public class LineMessage extends Message{
     private String userLineId;
 
 
-
-
     public String getUserLineId() {
         return userLineId;
     }

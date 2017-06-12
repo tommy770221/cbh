@@ -13,7 +13,7 @@
                            http://schema.cloudfoundry.org/spring
                            http://schema.cloudfoundry.org/spring/cloudfoundry-spring-0.8.xsd">
 
-    <mongo:db-factory host="${mongo.host}" id="mongoDbFactory" port="${mongo.port}" dbname="chatterbot-database"/>
+    <mongo:db-factory host="${mongo.host}" id="mongoDbFactory" username="${mongo.username}" password="${mongo.password}" port="${mongo.port}" dbname="chatterbot-database"/>
 
     <mongo:repositories base-package="com.cbh.service"/>
 
