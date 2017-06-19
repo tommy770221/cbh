@@ -318,10 +318,23 @@ public class LineBotController {
                         personRecord.setCurrentStatus("location");
                         personRecord.merge();
 
-                        Point DUS = new Point( 121.48, 24.99 );
-                        List<HospitalGeoResponse> locations = hospitalGeoMongoService.findByLocationNear(DUS, new Distance(0.5, Metrics.KILOMETERS) );
-                        Query query = new Query(Criteria.where("name").regex("診所"));
-                        NearQuery nearQuery = NearQuery.near(DUS).maxDistance(new Distance(5, Metrics.KILOMETERS));
+                        Point DUS = new Point( personRecord.getLongtitude(), personRecord.getLatitude() );
+                        JiebaSegmenter segmenter = new JiebaSegmenter();
+                        System.out.println(segmenter.process(personRecord.getSymptom(), JiebaSegmenter.SegMode.SEARCH).toString());
+                        List<SegToken> segTokenList = segmenter.process(personRecord.getSymptom(), JiebaSegmenter.SegMode.SEARCH);
+                        Criteria criteria = new Criteria();
+                        List<Criteria> criteriaList=new ArrayList<Criteria>();
+                        Query query = new Query();
+                        for(SegToken segToken:segTokenList){
+                            Criteria criteriaJ = new Criteria();
+                            criteriaJ.in("/"+segToken.word.toString()+"/");
+                            criteriaList.add(criteriaJ);
+                            System.out.println(segToken.word.toString());
+
+                        }
+                        criteria.orOperator(criteriaList.toArray(new Criteria[criteriaList.size()]));
+                        query.addCriteria(criteria);
+                        NearQuery nearQuery = NearQuery.near(DUS).maxDistance(new Distance(0.5, Metrics.KILOMETERS));
                         nearQuery.query(query);
                         nearQuery.num(5);
                         GeoResults<HospitalGeoResponse> data = mongoTemplate.geoNear(nearQuery, HospitalGeoResponse.class);
@@ -330,7 +343,6 @@ public class LineBotController {
                         for(GeoResult<HospitalGeoResponse> hospitalGeoResponse:data){
 
                             HospitalGeoResponse hospitalGeoResponse1=hospitalGeoResponse.getContent();
-                            String thumbnailImageUrl="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Taiwan_Taipei_Medical_University_Hospital_Building.JPG/180px-Taiwan_Taipei_Medical_University_Hospital_Building.JPG";
                             String title=hospitalGeoResponse1.getName();
                             String text=hospitalGeoResponse1.getServiceItem();
                             List<Action> actions=new ArrayList<Action>();
@@ -340,11 +352,11 @@ public class LineBotController {
                             String uriPhone="tel:"+hospitalGeoResponse1.getPhone().replaceAll("-","");
                             URIAction action=new URIAction(labelMap,uriMap);
                             URIAction actionPh=new URIAction(labelPhone,uriPhone);
-                            PostbackAction postbackAction=new PostbackAction("掛號","registered");
+                          //  PostbackAction postbackAction=new PostbackAction("掛號","registered");
                             actions.add(action);
                             actions.add(actionPh);
-                            actions.add(postbackAction);
-                            column=new CarouselColumn(thumbnailImageUrl,title,text,actions);
+                          //  actions.add(postbackAction);
+                            column=new CarouselColumn(null,title,text,actions);
                             System.out.println(hospitalGeoResponse.getContent().getAddress());
                             System.out.println(hospitalGeoResponse.getContent().getName());
                             columns.add(column);
