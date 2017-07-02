@@ -17,17 +17,6 @@ privileged aspect Disease_Roo_Jpa_Entity {
     
     declare @type: Disease: @Table(name = "disease");
     
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Integer Disease.id;
-    
-    public Integer Disease.getId() {
-        return this.id;
-    }
-    
-    public void Disease.setId(Integer id) {
-        this.id = id;
-    }
+
     
 }

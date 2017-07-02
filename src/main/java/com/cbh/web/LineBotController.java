@@ -261,15 +261,14 @@ public class LineBotController {
                         System.out.println(segmenter.process(ask.getText(), JiebaSegmenter.SegMode.SEARCH).toString());
                         List<SegToken> segTokenList = segmenter.process(ask.getText(), JiebaSegmenter.SegMode.SEARCH);
                         List<Disease> diseaseList = null;
+                        Set<Disease> diseaseSet = new HashSet<Disease>();
                         for (SegToken segToken : segTokenList) {
                             System.out.println(segToken.word.toString());
                             diseaseList = Disease.findAllLikeDiseases(segToken.word.trim());
-                            if (diseaseList.size() > 0) {
-                                break;
-                            }
+                            diseaseSet.addAll(diseaseList);
                         }
                         if (diseaseList != null) {
-                            for (Disease disease : diseaseList) {
+                            for (Disease disease : diseaseSet) {
                                 for (SegToken segToken : segTokenList) {
                                     if (disease.getSymptom().contains(segToken.word)) {
                                         disease.setOrderDis(disease.getOrderDis() + 1);
@@ -322,19 +321,48 @@ public class LineBotController {
                         JiebaSegmenter segmenter = new JiebaSegmenter();
                         System.out.println(segmenter.process(personRecord.getSymptom(), JiebaSegmenter.SegMode.SEARCH).toString());
                         List<SegToken> segTokenList = segmenter.process(personRecord.getSymptom(), JiebaSegmenter.SegMode.SEARCH);
+                        List<Disease> diseaseList = null;
+                        Set<Disease> diseaseSet = new HashSet<Disease>();
+                        for (SegToken segToken : segTokenList) {
+                            System.out.println(segToken.word.toString());
+                            diseaseList = Disease.findAllLikeDiseases(segToken.word.trim());
+                            diseaseSet.addAll(diseaseList);
+                        }
+                        if (diseaseList != null) {
+                            for (Disease disease : diseaseSet) {
+                                for (SegToken segToken : segTokenList) {
+                                    if (disease.getSymptom().contains(segToken.word)) {
+                                        disease.setOrderDis(disease.getOrderDis() + 1);
+                                    }
+                                }
+                            }
+                        }
+
+                        Collections.sort(diseaseList, new Comparator<Disease>() {
+                            @Override
+                            public int compare(Disease lhs, Disease rhs) {
+                                // -1 - less than, 1 - greater than, 0 - equal, all inversed for descending
+                                return lhs.getOrderDis() > rhs.getOrderDis() ? -1 : (lhs.getOrderDis() < rhs.getOrderDis()) ? 1 : 0;
+                            }
+                        });
                         Criteria criteria = new Criteria();
                         List<Criteria> criteriaList=new ArrayList<Criteria>();
-                        Query query = new Query();
-                        for(SegToken segToken:segTokenList){
-                            Criteria criteriaJ = new Criteria();
-                            criteriaJ.in("/"+segToken.word.toString()+"/");
-                            criteriaList.add(criteriaJ);
-                            System.out.println(segToken.word.toString());
+                        Query query = new Query(Criteria.where("name").regex("(醫院)|(診所)"));
+                        String str="";
+                        int i=0;
+                        for(Disease disease:diseaseSet){
+                            i++;
+                            if(i<diseaseSet.size()){
+                                str=str+"("+disease.getCategory()+")|";
+                            }else{
+                                str=str+"("+disease.getCategory()+")";
+                            }
+
+                            System.out.println(disease.getCategory());
 
                         }
-                        criteria.orOperator(criteriaList.toArray(new Criteria[criteriaList.size()]));
-                        query.addCriteria(criteria);
-                        NearQuery nearQuery = NearQuery.near(DUS).maxDistance(new Distance(0.5, Metrics.KILOMETERS));
+                        System.out.println(query.toString());
+                        NearQuery nearQuery = NearQuery.near(DUS).maxDistance(new Distance(5, Metrics.KILOMETERS));
                         nearQuery.query(query);
                         nearQuery.num(5);
                         GeoResults<HospitalGeoResponse> data = mongoTemplate.geoNear(nearQuery, HospitalGeoResponse.class);
@@ -343,8 +371,8 @@ public class LineBotController {
                         for(GeoResult<HospitalGeoResponse> hospitalGeoResponse:data){
 
                             HospitalGeoResponse hospitalGeoResponse1=hospitalGeoResponse.getContent();
-                            String title=hospitalGeoResponse1.getName();
-                            String text=hospitalGeoResponse1.getServiceItem();
+                            String title=(hospitalGeoResponse1.getName() ==null ? "": hospitalGeoResponse1.getName());
+                            String text= ((hospitalGeoResponse1.getServiceItem()==null || hospitalGeoResponse1.getServiceItem().equals("")) ? "一般門診": hospitalGeoResponse1.getServiceItem());
                             List<Action> actions=new ArrayList<Action>();
                             String labelMap="地圖";
                             String uriMap="https://www.google.com/maps/place/"+ URLEncoder.encode(hospitalGeoResponse1.getAddress());
@@ -359,10 +387,9 @@ public class LineBotController {
                             column=new CarouselColumn(null,title,text,actions);
                             System.out.println(hospitalGeoResponse.getContent().getAddress());
                             System.out.println(hospitalGeoResponse.getContent().getName());
+                            System.out.println(hospitalGeoResponse.getContent().getCategory());
                             columns.add(column);
                         }
-
-
 
 
 

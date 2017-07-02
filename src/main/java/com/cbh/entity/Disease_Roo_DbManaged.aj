@@ -8,48 +8,6 @@ import javax.persistence.Column;
 
 privileged aspect Disease_Roo_DbManaged {
     
-    @Column(name = "doc_category")
-    private String Disease.docCategory;
-    
-    @Column(name = "category")
-    private String Disease.category;
-    
-    @Column(name = "big_category")
-    private String Disease.bigCategory;
-    
-    @Column(name = "symptom")
-    private String Disease.symptom;
-    
-    public String Disease.getDocCategory() {
-        return docCategory;
-    }
-    
-    public void Disease.setDocCategory(String docCategory) {
-        this.docCategory = docCategory;
-    }
-    
-    public String Disease.getCategory() {
-        return category;
-    }
-    
-    public void Disease.setCategory(String category) {
-        this.category = category;
-    }
-    
-    public String Disease.getBigCategory() {
-        return bigCategory;
-    }
-    
-    public void Disease.setBigCategory(String bigCategory) {
-        this.bigCategory = bigCategory;
-    }
-    
-    public String Disease.getSymptom() {
-        return symptom;
-    }
-    
-    public void Disease.setSymptom(String symptom) {
-        this.symptom = symptom;
-    }
+
     
 }
