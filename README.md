@@ -43,5 +43,5 @@ mvn clean package  </br>
 本地開發 </br>
 mvn clean tomcat7:run </br>
 
-測試chatbot帳號 ：  </br>
+測試chatbot的 line 帳號 ：  </br>
 ![image](chatbotQRcode.png) </br>
