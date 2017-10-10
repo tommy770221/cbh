@@ -12,6 +12,10 @@
 ![image](看病要看什麼科chatbot.png)
 
 
+後台管理網站:
+
+  https://tommy770221.com/cbh/diseases?page=1&size=10
+
 
 目錄說明：
  
