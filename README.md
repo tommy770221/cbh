@@ -36,5 +36,5 @@ src/main/webapp/WEB-INF/views/*/views.xml   tiles 設定  </br>
 打包war檔           </br>
 mvn clean package  </br>
 
-測試chatbot帳號 ： 
-![image](https://qr-official.line.me/M/QC85t_n-_U.png) </br>
+測試chatbot帳號 ：  </br>
+![image](chatbotQRcode.png) </br>
