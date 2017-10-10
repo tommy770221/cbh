@@ -9,7 +9,7 @@
 
 系統架構說明             </br>
 
-
+![image] (https://github.com/tommy770221/cbh/blob/master/%E7%9C%8B%E7%97%85%E8%A6%81%E7%9C%8B%E4%BB%80%E9%BA%BC%E7%A7%91chatbot.png)
 
 
 
@@ -36,4 +36,5 @@ src/main/webapp/WEB-INF/views/*/views.xml   tiles 設定  </br>
 打包war檔           </br>
 mvn clean package  </br>
 
-測試chatbot帳號 ： https://qr-official.line.me/M/QC85t_n-_U.png </br>
+測試chatbot帳號 ： 
+![image](https://qr-official.line.me/M/QC85t_n-_U.png) </br>
