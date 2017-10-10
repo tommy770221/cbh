@@ -9,7 +9,7 @@
 
 系統架構說明             </br>
 
-![image] (https://github.com/tommy770221/cbh/blob/master/%E7%9C%8B%E7%97%85%E8%A6%81%E7%9C%8B%E4%BB%80%E9%BA%BC%E7%A7%91chatbot.png)
+![image](看病要看什麼科chatbot.png)
 
 
 
