@@ -40,5 +40,8 @@ src/main/webapp/WEB-INF/views/*/views.xml   tiles 設定  </br>
 打包war檔           </br>
 mvn clean package  </br>
 
+本地開發
+mvn clean tomcat7:run </br>
+
 測試chatbot帳號 ：  </br>
 ![image](chatbotQRcode.png) </br>
